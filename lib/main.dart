@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_taker_3000/ui/custom_colors.dart';
+import 'package:note_taker_3000/constants/custom_colors.dart';
 import 'package:note_taker_3000/ui/home_route.dart';
 
 void main() {
