@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:note_taker_3000/constants/constants.dart';
 import 'package:note_taker_3000/ui/archive_list.dart';
 import 'package:note_taker_3000/ui/note_list.dart';
 
@@ -9,41 +8,32 @@ class HomeRoute extends StatefulWidget {
 }
 
 class _HomeRouteState extends State<HomeRoute> {
-  int _selectedIndex = Constants.NOTES_LIST;
-
-  static final _tabList = [
+  static final _tabViewList = [
     NoteList(),
-    ArchiveList()
+    ArchiveList(),
   ];
 
-  void _onTabSelected(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  static final _tabIconList = [
+    Tab(icon: Icon(Icons.note)),
+    Tab(icon: Icon(Icons.archive)),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_selectedIndex == Constants.NOTES_LIST ? 'All Notes' : 'Archive'),
-        centerTitle: true,
-      ),
-      body: _tabList.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.note),
-            title: Text('Notes'),
+    return DefaultTabController(
+      length: _tabViewList.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Note Taker 3000'),
+          centerTitle: true,
+          bottom: TabBar(
+            indicatorColor: Colors.white,
+            tabs: _tabIconList,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.archive),
-            title: Text('Archive'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onTabSelected,
+        ),
+        body: TabBarView(
+          children: _tabViewList,
+        ),
       ),
     );
   }

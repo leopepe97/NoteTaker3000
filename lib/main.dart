@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_taker_3000/ui/custom_colors.dart';
 import 'package:note_taker_3000/ui/home_route.dart';
-import 'package:note_taker_3000/ui/note_list.dart';
 
 void main() {
   runApp(NoteTaker3000());
@@ -12,7 +12,7 @@ class NoteTaker3000 extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: CustomColors.primaryBlack,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomeRoute(),
