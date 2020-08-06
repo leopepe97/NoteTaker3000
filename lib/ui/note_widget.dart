@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:note_taker_3000/model/note.dart';
 
-class Note extends StatelessWidget {
-  const Note({
+class NoteWidget extends StatelessWidget {
+  const NoteWidget({
     Key key,
-    @required this.title,
-    @required this.body,
-    @required this.color,
+    @required this.note,
     @required this.onDeletePressed,
     @required this.onArchivePressed,
   }) : super(key: key);
 
-  final String title;
-  final String body;
-  final Color color;
+  final Note note;
   final Function() onDeletePressed;
   final Function() onArchivePressed;
 
@@ -25,7 +21,7 @@ class Note extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
-        color: color,
+        color: note.color,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: buildNoteBody(context),
@@ -39,12 +35,12 @@ class Note extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          title,
+          note.title,
           style: Theme.of(context).textTheme.headline6,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
-        Text(body),
+        Text(note.body),
         const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
