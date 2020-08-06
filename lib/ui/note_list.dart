@@ -32,7 +32,7 @@ class _NoteListState extends State<NoteList> {
               body: 'This is the body of a test note that I am making, I hope it works as good as I expect it to work',
               color: Colors.deepPurpleAccent,
               onDeletePressed: () => {},
-              onArchivePressed: () => {},
+              onArchivePressed: null,
             )
           );
         })

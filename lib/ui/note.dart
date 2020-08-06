@@ -56,13 +56,14 @@ class Note extends StatelessWidget {
               ),
               onPressed: onDeletePressed,
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.archive,
-                color: Colors.white70,
+            if (onArchivePressed != null)
+              IconButton(
+                icon: const Icon(
+                  Icons.archive,
+                  color: Colors.white70,
+                ),
+                onPressed: onArchivePressed,
               ),
-              onPressed: onArchivePressed,
-            ),
           ],
         )
       ],
