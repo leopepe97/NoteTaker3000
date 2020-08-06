@@ -9,13 +9,33 @@ class NoteList extends StatefulWidget {
 class _NoteListState extends State<NoteList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return noteList.elementAt(index);
-        },
-        itemCount: noteList.length,
+    return Scaffold(
+      body: Container(
+        color: Colors.black,
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return noteList.elementAt(index);
+          },
+          itemCount: noteList.length,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        child: Icon(
+          Icons.add,
+          color: Colors.white70,
+        ),
+        onPressed: () => setState(() {
+          noteList.add(
+            Note(
+              title: 'This is a new title! :)',
+              body: 'This is the body of a test note that I am making, I hope it works as good as I expect it to work',
+              color: Colors.deepPurpleAccent,
+              onDeletePressed: () => {},
+              onArchivePressed: () => {},
+            )
+          );
+        })
       ),
     );
   }
