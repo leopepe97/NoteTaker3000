@@ -36,11 +36,18 @@ class NotesModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void archiveNote(int index) {
+  void archiveNote(int index) async {
     _noteList.elementAt(index).isArchived = true;
     _archivedList.add(_noteList.elementAt(index));
-    _noteList.removeAt(index);
+    final updatedNote = _noteList.removeAt(index);
     notifyListeners();
+    final Database db = await DatabaseService.getDatabase();
+    db.update(
+      'notes',
+      updatedNote.toMap(),
+      where: 'id = ?',
+      whereArgs: [updatedNote.id],
+    );
   }
 
   void _fetchAllNotes() async {
