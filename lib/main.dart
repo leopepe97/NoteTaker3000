@@ -5,8 +5,8 @@ import 'package:note_taker_3000/ui/home_route.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: CustomColors.grayPrimaryColor, // navigation bar color
-    statusBarColor: CustomColors.grayPrimaryColor, // status bar color
+    systemNavigationBarColor: CustomColors.grayPrimaryColor,
+    statusBarColor: CustomColors.grayPrimaryColor,
   ));
   runApp(NoteTaker3000());
 }
