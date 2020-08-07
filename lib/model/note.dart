@@ -14,7 +14,7 @@ class Note {
       'title': title,
       'body': body,
       'color': color.value,
-      'isArchived': isArchived,
+      'isArchived': isArchived ? 1 : 0,
     };
   }
 
@@ -24,7 +24,7 @@ class Note {
       title: map['title'],
       body: map['body'],
       color: Color(map['color']),
-      isArchived: map['isArchived'],
+      isArchived: map['isArchived'] == 0 ? false : true,
     );
   }
 

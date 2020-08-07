@@ -17,6 +17,20 @@ class _NoteListState extends State<NoteList> {
   final _random = new Random();
 
   @override
+  void initState() {
+    super.initState();
+    Function() updateFirstNotes;
+    updateFirstNotes = () {
+      var notesModel = Provider.of<NotesModel>(context, listen: false);
+      for (int i = 0; i < notesModel.noteList.length; i++) {
+        _animatedListKey.currentState.insertItem(i);
+      }
+      notesModel.removeListener(updateFirstNotes);
+    };
+    Provider.of<NotesModel>(context, listen: false).addListener(updateFirstNotes);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
