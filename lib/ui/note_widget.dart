@@ -6,7 +6,7 @@ class NoteWidget extends StatelessWidget {
     Key key,
     @required this.note,
     @required this.onDeletePressed,
-    @required this.onArchivePressed,
+    this.onArchivePressed,
   }) : super(key: key);
 
   final Note note;
