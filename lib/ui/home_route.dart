@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note_taker_3000/model/notes_model.dart';
 import 'package:note_taker_3000/ui/archive_list.dart';
 import 'package:note_taker_3000/ui/note_list.dart';
+import 'package:provider/provider.dart';
 
 class HomeRoute extends StatefulWidget {
   @override
@@ -31,8 +33,11 @@ class _HomeRouteState extends State<HomeRoute> {
             tabs: _tabIconList,
           ),
         ),
-        body: TabBarView(
-          children: _tabViewList,
+        body: ChangeNotifierProvider(
+          create: (context) => NotesModel(),
+          child: TabBarView(
+            children: _tabViewList,
+          ),
         ),
       ),
     );
