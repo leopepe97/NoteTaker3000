@@ -20,9 +20,15 @@ class NotesModel extends ChangeNotifier {
     _fetchAllNotes();
   }
 
-  void deleteNote(int index) {
-    _noteList.removeAt(index);
+  void deleteNote(int index) async {
+    final deletedNote = _noteList.removeAt(index);
     notifyListeners();
+    final Database db = await DatabaseService.getDatabase();
+    db.delete(
+      'notes',
+      where: 'id = ?',
+      whereArgs: [deletedNote.id],
+    );
   }
 
   void deleteArchivedNote(int index) {
