@@ -24,23 +24,24 @@ class _NoteListState extends State<NoteList> {
         child: Consumer<NotesModel>(
           builder: (context, notesModel, child) {
             return AnimatedList(
-                key: _animatedListKey,
-                initialItemCount: notesModel.noteList.length,
-                itemBuilder: (context, index, animation) {
-                  final currentNote = notesModel.noteList.elementAt(index);
-                  return _buildNewNoteWidget(
-                    currentNote,
-                    animation,
-                    onArchivePressed: () {
-                      notesModel.archiveNote(index);
-                      _animateNoteArchived(currentNote, index);
-                    },
-                    onDeletePressed: () {
-                      notesModel.deleteNote(index);
-                      _animateNoteDeleted(currentNote, index);
-                    },
-                  );
-                });
+              key: _animatedListKey,
+              initialItemCount: notesModel.noteList.length,
+              itemBuilder: (context, index, animation) {
+                final currentNote = notesModel.noteList.elementAt(index);
+                return _buildNewNoteWidget(
+                  currentNote,
+                  animation,
+                  onArchivePressed: () {
+                    notesModel.archiveNote(index);
+                    _animateNoteArchived(currentNote, index);
+                  },
+                  onDeletePressed: () {
+                    notesModel.deleteNote(index);
+                    _animateNoteDeleted(currentNote, index);
+                  },
+                );
+              },
+            );
           },
         ),
       ),
