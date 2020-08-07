@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_taker_3000/constants/custom_colors.dart';
 import 'package:note_taker_3000/model/notes_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class _ArchiveListState extends State<ArchiveList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        color: CustomColors.grayPrimaryColor,
         child: Consumer<NotesModel>(
           builder: (context, notesModel, child) {
             return ListView.builder(

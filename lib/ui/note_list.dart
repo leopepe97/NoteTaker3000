@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:note_taker_3000/constants/custom_colors.dart';
 import 'package:note_taker_3000/model/note.dart';
 import 'package:note_taker_3000/model/notes_model.dart';
 import 'package:note_taker_3000/ui/note_widget.dart';
@@ -10,11 +13,13 @@ class NoteList extends StatefulWidget {
 }
 
 class _NoteListState extends State<NoteList> {
+  final _random = new Random();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        color: CustomColors.grayPrimaryColor,
         child: Consumer<NotesModel>(
           builder: (context, notesModel, child) {
             return ListView.builder(
@@ -43,7 +48,7 @@ class _NoteListState extends State<NoteList> {
                 title: 'This is a new title! :)',
                 body:
                     'This is the body of a test note that I am making, I hope it works as good as I expect it to work',
-                color: Colors.deepPurpleAccent,
+                color: CustomColors.noteColors[_random.nextInt(CustomColors.noteColors.length)],
               ),
             );
           });
