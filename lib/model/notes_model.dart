@@ -5,30 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:note_taker_3000/model/note.dart';
 
 class NotesModel extends ChangeNotifier {
-  final _noteList = [
-    Note(
-      title: 'This is a title! :)',
-      body:
-          'This is the body of a test note that I am making, I hope it works as good as I expect it to work',
-      color: Colors.deepPurpleAccent,
-    ),
-    Note(
-      title: 'This is a title! :)',
-      body:
-          'This is the body of a test note that I am making, I hope it works as good as I expect it to work',
-      color: Colors.deepPurpleAccent,
-    ),
-  ];
+  final _noteList = <Note>[];
 
-  final _archivedList = [
-    Note(
-      title: 'This is an archived title! :)',
-      body:
-          'This is the body of a test note that I am making, I hope it works as good as I expect it to work',
-      color: Colors.deepPurpleAccent,
-      isArchived: true,
-    ),
-  ];
+  final _archivedList = <Note>[];
 
   UnmodifiableListView<Note> get noteList => UnmodifiableListView(_noteList);
   UnmodifiableListView<Note> get archivedList =>

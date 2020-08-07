@@ -52,20 +52,12 @@ class _NoteListState extends State<NoteList> {
           color: Colors.white70,
         ),
         onPressed: () {
-          var notesModel = Provider.of<NotesModel>(context, listen: false);
+          //var notesModel = Provider.of<NotesModel>(context, listen: false);
           setState(() {
-            notesModel.addNote(
-              Note(
-                title: 'This is a new title! :)',
-                body:
-                    'This is the body of a test note that I am making, I hope it works as good as I expect it to work',
-                color: CustomColors.noteColors[
-                    _random.nextInt(CustomColors.noteColors.length)],
-              ),
-            );
+            //TODO: Add new note
           });
-          _animatedListKey.currentState
-              .insertItem(notesModel.noteList.length - 1);
+         // _animatedListKey.currentState
+         //     .insertItem(notesModel.noteList.length - 1);
         },
       ),
     );
