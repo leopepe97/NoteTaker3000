@@ -10,17 +10,14 @@ class NotesModel extends ChangeNotifier {
   final _noteList = <Note>[];
   final _archivedList = <Note>[];
 
+  var firstRun = true;
+
   UnmodifiableListView<Note> get noteList => UnmodifiableListView(_noteList);
   UnmodifiableListView<Note> get archivedList =>
       UnmodifiableListView(_archivedList);
 
   NotesModel() {
-    _getNotes();
-  }
-
-  void addNote(Note newNote) {
-    _noteList.add(newNote);
-    notifyListeners();
+    _fetchAllNotes();
   }
 
   void deleteNote(int index) {
@@ -40,7 +37,7 @@ class NotesModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _getNotes() async {
+  void _fetchAllNotes() async {
     final Database db = await DatabaseService.getDatabase();
     final List<Map<String, dynamic>> maps = await db.query('notes');
     maps.forEach((map) {
@@ -50,6 +47,25 @@ class NotesModel extends ChangeNotifier {
       else
         _noteList.add(note);
     });
+    notifyListeners();
+  }
+  
+  Future<void> addNote(String title, String body, Color color) async {
+    final Database db = await DatabaseService.getDatabase();
+    final newNote = Note(
+      id: -1,
+      title: title,
+      body: body,
+      color: color,
+      isArchived: false,
+    );
+    final newId = await db.insert(
+      'notes',
+      newNote.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    newNote.id = newId;
+    _noteList.add(newNote);
     notifyListeners();
   }
 }

@@ -21,13 +21,16 @@ class _NoteListState extends State<NoteList> {
     super.initState();
     Function() updateFirstNotes;
     updateFirstNotes = () {
-      var notesModel = Provider.of<NotesModel>(context, listen: false);
+      final notesModel = Provider.of<NotesModel>(context, listen: false);
       for (int i = 0; i < notesModel.noteList.length; i++) {
         _animatedListKey.currentState.insertItem(i);
       }
       notesModel.removeListener(updateFirstNotes);
+      notesModel.firstRun = false;
     };
-    Provider.of<NotesModel>(context, listen: false).addListener(updateFirstNotes);
+    final notesModel = Provider.of<NotesModel>(context, listen: false);
+    if (notesModel.firstRun)
+      notesModel.addListener(updateFirstNotes);
   }
 
   @override
@@ -66,12 +69,7 @@ class _NoteListState extends State<NoteList> {
           color: Colors.white70,
         ),
         onPressed: () {
-          //var notesModel = Provider.of<NotesModel>(context, listen: false);
-          setState(() {
-            //TODO: Add new note
-          });
-         // _animatedListKey.currentState
-         //     .insertItem(notesModel.noteList.length - 1);
+          addNote();
         },
       ),
     );
@@ -123,5 +121,15 @@ class _NoteListState extends State<NoteList> {
       return _buildArchivedNoteWidget(note, animation);
     };
     _animatedListKey.currentState.removeItem(index, builder);
+  }
+
+  void addNote() async {
+    final notesModel = Provider.of<NotesModel>(context, listen: false);
+    await notesModel.addNote(
+      'New note! :)',
+      'This is a brand new note, wohoo!',
+      CustomColors.noteColors[_random.nextInt(CustomColors.noteColors.length)]
+    );
+    _animatedListKey.currentState.insertItem(notesModel.noteList.length - 1);
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Note {
 
-  final int id;
+  int id;
   final String title;
   final String body;
   final Color color;
@@ -10,7 +10,7 @@ class Note {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'id': id == -1 ? null : id,
       'title': title,
       'body': body,
       'color': color.value,
