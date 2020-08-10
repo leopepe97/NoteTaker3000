@@ -13,8 +13,11 @@ class NoteList extends StatefulWidget {
 }
 
 class _NoteListState extends State<NoteList> {
+  final _titleController = TextEditingController();
+  final _bodyController = TextEditingController();
   final GlobalKey<AnimatedListState> _animatedListKey = GlobalKey();
   final _random = new Random();
+  var _isComposing = false;
 
   @override
   void initState() {
@@ -69,8 +72,94 @@ class _NoteListState extends State<NoteList> {
           color: Colors.white70,
         ),
         onPressed: () {
-          addNote();
+          showBottomSheet(
+            context: context,
+            builder: (_) => _buildBottomSheet(),
+          );
         },
+      ),
+    );
+  }
+
+  Widget _buildBottomSheet() {
+    return Container(
+      color: CustomColors.grayPrimaryColor,
+      padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
+      height: 250,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 8,
+                  color: Colors.grey[300],
+                  spreadRadius: 4,
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextField(
+                    controller: _titleController,
+                    decoration: InputDecoration.collapsed(
+                      hintText: 'Title',
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextField(
+                    controller: _bodyController,
+                    decoration: InputDecoration.collapsed(
+                      hintText: 'Body',
+                    ),
+                  ),
+                ),
+                MaterialButton(
+                  color: CustomColors.grayPrimaryColor,
+                  onPressed: () => {
+                    addNote(
+                      _titleController.text,
+                      _bodyController.text,
+                    ),
+                    _titleController.clear(),
+                    _bodyController.clear(),
+                    Navigator.pop(context)
+                  },
+                  child: const Text(
+                    'Add!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  height: 40,
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -123,11 +212,11 @@ class _NoteListState extends State<NoteList> {
     _animatedListKey.currentState.removeItem(index, builder);
   }
 
-  void addNote() async {
+  void addNote(String noteTitle, String noteBody) async {
     final notesModel = Provider.of<NotesModel>(context, listen: false);
     await notesModel.addNote(
-      'New note! :)',
-      'This is a brand new note, wohoo!',
+      noteTitle,
+      noteBody,
       CustomColors.noteColors[_random.nextInt(CustomColors.noteColors.length)]
     );
     _animatedListKey.currentState.insertItem(notesModel.noteList.length - 1);
